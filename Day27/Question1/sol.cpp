@@ -1,44 +1,51 @@
-#include <stdio.h>
+#include <iostream>
+#include <vector>
+#include <limits>
+
+using namespace std;
+
+void findInterestingSubarray(const vector<int>& a) {
+    int n = a.size();
+    int min_val = numeric_limits<int>::max();
+    int max_val = numeric_limits<int>::min();
+    int min_index = -1;
+    int max_index = -1;
+
+    for (int i = 0; i < n; i++) {
+        if (a[i] < min_val) {
+            min_val = a[i];
+            min_index = i + 1;
+        }
+
+        if (a[i] > max_val) {
+            max_val = a[i];
+            max_index = i + 1;
+        }
+
+        if (max_val - min_val >= i + 1) {
+            cout << "YES" << endl;
+            cout << min_index << " " << i + 1 << endl;
+            return;
+        }
+    }
+
+    cout << "NO" << endl;
+}
 
 int main() {
     int t;
-    scanf("%d", &t);
+    cin >> t;
 
-    for (int testCase = 0; testCase < t; testCase++) {
+    while (t--) {
         int n;
-        scanf("%d", &n);
-        int a[n];
+        cin >> n;
 
+        vector<int> a(n);
         for (int i = 0; i < n; i++) {
-            scanf("%d", &a[i]);
+            cin >> a[i];
         }
 
-        int minVal = __INT_MAX__;
-        int maxVal = __INT_MIN__;
-        int minIndex = -1;
-        int maxIndex = -1;
-
-        for (int i = 0; i < n; i++) {
-            if (a[i] < minVal) {
-                minVal = a[i];
-                minIndex = i + 1;
-            }
-
-            if (a[i] > maxVal) {
-                maxVal = a[i];
-                maxIndex = i + 1;
-            }
-
-            if (maxVal - minVal >= i + 1) {
-                printf("YES\n");
-                printf("%d %d\n", minIndex, i + 1);
-                break;
-            }
-        }
-
-        if (maxVal - minVal < n) {
-            printf("NO\n");
-        }
+        findInterestingSubarray(a);
     }
 
     return 0;
