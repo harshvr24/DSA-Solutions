@@ -1,31 +1,15 @@
-#include <stdio.h>
+#include <iostream>
+#include <vector>
 
-void reverseArraySegment(int arr[], int start, int end) {
-    while (start < end) {
-        int temp = arr[start];
-        arr[start] = arr[end];
-        arr[end] = temp;
-        start++;
-        end--;
-    }
-}
-
-int isSorted(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        if (arr[i] > arr[i + 1]) {
-            return 0;
-        }
-    }
-    return 1;
-}
+using namespace std;
 
 int main() {
     int n;
-    scanf("%d", &n);
-    int a[n];
+    cin >> n;
 
+    vector<int> a(n);
     for (int i = 0; i < n; i++) {
-        scanf("%d", &a[i]);
+        cin >> a[i];
     }
 
     int start = -1, end = -1;
@@ -45,15 +29,15 @@ int main() {
     }
 
     if (start == -1 && end == -1) {
-        printf("yes\n");
-        printf("1 1\n");
+        cout << "yes" << endl;
+        cout << "1 1" << endl;
     } else {
-        reverseArraySegment(a, start, end);
-        if (isSorted(a, n)) {
-            printf("yes\n");
-            printf("%d %d\n", start + 1, end + 1);
+        reverse(a.begin() + start, a.begin() + end + 1);
+        if (is_sorted(a.begin(), a.end())) {
+            cout << "yes" << endl;
+            cout << start + 1 << " " << end + 1 << endl;
         } else {
-            printf("no\n");
+            cout << "no" << endl;
         }
     }
 
