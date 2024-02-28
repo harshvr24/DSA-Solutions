@@ -1,16 +1,22 @@
 class Solution {
-  public int findMin(int[] nums) {
-    int l = 0;
-    int r = nums.length - 1;
-
-    while (l < r) {
-      final int m = (l + r) / 2;
-      if (nums[m] < nums[r])
-        r = m;
-      else
-        l = m + 1;
+    private boolean isValid(int mid, int[] nums) {
+        return nums[mid] <= nums[nums.length - 1];
     }
 
-    return nums[l];
-  }
+    public int findMin(int[] nums) {
+        int invalid = -1;
+        int valid = nums.length - 1;
+
+        while (Math.abs(valid - invalid) > 1) {
+            int mid = (valid + invalid) / 2;
+
+            if (isValid(mid, nums)) {
+                valid = mid;
+            } else {
+                invalid = mid;
+            }
+        }
+
+        return nums[valid];
+    }
 }
